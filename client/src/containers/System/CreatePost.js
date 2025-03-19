@@ -50,11 +50,17 @@ const CreatePost = () => {
         }))
     }
     const handleSubmit = () => {
-        // let priceCodeArr = getCodes([+payload.priceNumber, +payload.priceNumber], prices)
-        // console.log(priceCodeArr)
-        // let priceCode = priceCodeArr[priceCodeArr.length - 1]?.code
+        let priceCodeArr = getCodes( +payload.priceNumber, prices, 1, 15) || []
+        let priceCode = priceCodeArr[0]?.code
+        let areaCodeArr = getCodesArea(+payload.areaNumber, areas, 0, 90) || []
+        let areaCode = areaCodeArr[0]?.code
 
-        // console.log(priceCode)
+        let finalPayload = {
+            ...payload,
+            priceCode,
+            areaCode
+        }
+        console.log(finalPayload)
     }
 
     return (

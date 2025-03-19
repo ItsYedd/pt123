@@ -38,7 +38,7 @@ export const apiGetPublicProvinces = () => new Promise(async (resolve, reject) =
     try {
         const response = await axiosDefault({
             method: 'get',
-            url: 'https://vapi.vnappmob.com/api/province/'
+            url: 'https://vapi.vnappmob.com/api/v2/province/'
         })
         resolve(response)
     } catch (error) {
@@ -49,7 +49,7 @@ export const apiGetPublicDistrict = (provinceId) => new Promise(async (resolve, 
     try {
         const response = await axiosDefault({
             method: 'get',
-            url: `https://vapi.vnappmob.com/api/province/district/${provinceId}`
+            url: `https://vapi.vnappmob.com/api/v2/province/district/${provinceId}`
         })
         resolve(response)
     } catch (error) {
