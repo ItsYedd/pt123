@@ -34,10 +34,10 @@ const Login = () => {
             phone: payload.phone,
             password: payload.password
         }
-        let invalids = validate(finalPayload)
+        let invalids = validate(finalPayload, setInvalidFields)
         if (invalids === 0) isRegister ? dispatch(actions.register(payload)) : dispatch(actions.login(payload))
     }
-    const validate = (payload) => {
+    const validate = (payload, setInvalidFields) => {
         let invalids = 0
         let fields = Object.entries(payload)
         fields.forEach(item => {
