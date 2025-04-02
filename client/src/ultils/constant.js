@@ -11,7 +11,8 @@ export const path = {
     SYSTEM: '/he-thong/*',
     CREATE_POST: 'tao-moi-bai-dang',
     MANAGE_POST: 'quan-ly-bai-dang',
-    EDIT_ACOUNT : 'sua-thong-tin-ca-nhan'
+    EDIT_ACOUNT: 'sua-thong-tin-ca-nhan',
+    CONTACT : 'lien-he'
 }
 
 export const text = {
