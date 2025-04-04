@@ -12,7 +12,9 @@ export const path = {
     CREATE_POST: 'tao-moi-bai-dang',
     MANAGE_POST: 'quan-ly-bai-dang',
     EDIT_ACOUNT: 'sua-thong-tin-ca-nhan',
-    CONTACT : 'lien-he'
+    CONTACT: 'lien-he',
+    DETAIL: '/chi-tiet/',
+    DETAIL_ALL : 'chi-tiet/*'
 }
 
 export const text = {

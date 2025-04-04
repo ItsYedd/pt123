@@ -22,14 +22,16 @@ const validate = (payload, setInvalidFields) => {
                 }
                 break;
             case 'phone':
-                if (!+item[1]) {
+                if (!+item[1] || !/^(03|05|07|08|09)\d{8}$/.test(item[1])) {
                     setInvalidFields(prev => [...prev, {
                         name: item[0],
                         message: 'Số điện thoại không hợp lệ.'
                     }])
                     invalids++
                 }
-                break
+                break;
+        
+            
             case 'priceNumber':
             case 'areaNumber':
                 if (+item[1] === 0) {
