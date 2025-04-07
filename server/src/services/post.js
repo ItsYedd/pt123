@@ -48,7 +48,8 @@ export const getPostsLimitService = (page, {limitPost,order, ...query}, { priceN
             include: [
                 { model: db.Image, as: 'images', attributes: ['image'] },
                 { model: db.Attribute, as: 'attributes', attributes: ['price', 'acreage', 'published', 'hashtag'] },
-                { model: db.User, as: 'user', attributes: ['name', 'zalo', 'phone'] },
+                { model: db.User, as: 'user', attributes: ['name', 'zalo', 'phone', 'fbUrl'] },
+                {model: db.Overview, as:'overviews'}
             ],
             attributes: ['id', 'title', 'star', 'address', 'description']
         })

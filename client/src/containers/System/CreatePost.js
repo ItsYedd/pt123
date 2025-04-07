@@ -9,6 +9,9 @@ import Swal from 'sweetalert2'
 import validate from '../../ultils/Common/validateFields'
 import { useDispatch } from 'react-redux'
 import { resetDataEdit } from '../../store/actions'
+import { Map } from '../../components'
+import { attention } from '../../ultils/constant'
+
 
 const { BsCameraFill, ImBin } = icons
 
@@ -182,9 +185,19 @@ const CreatePost = ({ isEdit }) => {
 
                     </div>
                 </div>
-                <div className='w-[30%] flex-none'>
-                    maps
-                    <Loading />
+                <div className='w-[30%] flex-none pt-12'>
+                    <Map address={payload.address} />
+                    <div className='mt-8 bg-orange-100 text-orange-900 rounded-md p-4'>
+                        <h4 className='text-xl font-medium'>Lưu ý tin đăng</h4>
+                        <ul className='text-sm list-disc pl-6'>
+                            {attention.map((item, index) => {
+                                return (
+                                    <li key={index}>{item}</li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                    
                 </div>
             </div>
         </div>

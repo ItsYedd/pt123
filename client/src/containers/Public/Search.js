@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { SearchItem, Modal } from '../../components'
 import icons from '../../ultils/icons'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, } from 'react-redux'
 import { useNavigate, createSearchParams, useLocation } from 'react-router-dom'
 import { path } from '../../ultils/constant'
+
 
 const { BsChevronRight, HiOutlineLocationMarker, TbReportMoney, RiCrop2Line, MdOutlineHouseSiding, FiSearch } = icons
 
