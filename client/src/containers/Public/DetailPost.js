@@ -6,18 +6,30 @@ import { SliderCustom, Map, BoxInfo, RelatedPost } from '../../components'
 import icons from '../../ultils/icons'
 import { BsHash, BsStopwatch } from 'react-icons/bs'
 import { underMap } from '../../ultils/constant'
+import { useNavigate, createSearchParams } from 'react-router-dom'
+import { path } from '../../ultils/constant'
 
-const {   TbReportMoney, RiCrop2Line,  HiLocationMarker } = icons
+
+const { TbReportMoney, RiCrop2Line, HiLocationMarker } = icons
 
 const DetailPost = () => {
     const { postId } = useParams()
     const dispatch = useDispatch()
     const { posts } = useSelector(state => state.post)
+    const navigate = useNavigate()
     //console.log(posts)
 
     useEffect(() => {
         postId && dispatch(getPostsLimit({ id: postId }))
     }, [postId, dispatch])
+
+    const handleFilterLabel = () => {
+        const titleSearch = `Tìm kiếm theo chuyên mục ${posts[0]?.labelData?.value}`
+        navigate({
+            pathname:`/${path.SEARCH}`,
+            search: createSearchParams({ labelCode: posts[0]?.labelData?.code }).toString()
+        }, { state: { titleSearch } });
+    }
     return (
         <div className='w-full flex gap-4'>
             <div className='w-[70%]'>
@@ -28,7 +40,11 @@ const DetailPost = () => {
 
                         <div className='flex items-center gap-2  '>
                             <span>Chuyên mục : </span>
-                            <span className='hover:text-orange-500 cursor-pointer underline font-medium text-blue-600'>{posts[0]?.overviews?.area}</span>
+                            <span
+                                className='hover:text-orange-500 cursor-pointer underline font-medium text-blue-600'
+                                onClick={handleFilterLabel}
+                            >{posts[0]?.labelData?.value}
+                            </span>
                         </div>
                         <div className='flex gap-2 items-center'>
                             <HiLocationMarker color='#2563eb' />
@@ -124,7 +140,7 @@ const DetailPost = () => {
                         <div className='mt-5'>
                             <h3 className='text-xl font-bold my-4'>Bản đồ</h3>
                             <div><Map address={posts[0]?.address} /></div>
-                            <p className='text-gray-500 text-sm py-4 text-justify italic mt-1'>{`${underMap[0]} ${posts[0]?.title} ${underMap[1]}` }</p>
+                            <p className='text-gray-500 text-sm py-4 text-justify italic mt-1'>{`${underMap[0]} ${posts[0]?.title} ${underMap[1]}`}</p>
                         </div>
                     </div>
                 </div>
@@ -132,7 +148,7 @@ const DetailPost = () => {
             <div className='w-[30%] flex flex-col gap-5'>
                 <BoxInfo userData={posts[0]?.user} />
                 <RelatedPost />
-                <RelatedPost newPost/>
+                <RelatedPost newPost />
             </div>
         </div>
     )

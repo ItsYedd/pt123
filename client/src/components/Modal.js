@@ -74,17 +74,15 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
     const handleBeforeSubmit = (e) => {
         let min = persent1 <= persent2 ? persent1 : persent2
         let max = persent1 <= persent2 ? persent2 : persent1
-        let arrMinMax = [convert100toTarget(min), convert100toTarget(max)]
-        // const gaps = name === 'price'
-        //     ? getCodes(arrMinMax, content)
-        //     : name === 'area' ? getCodesArea(arrMinMax, content) : []
+        let arrMinMax = (persent1 === persent2 && persent1 === 100) ? [convert100toTarget(min), 99999] : [convert100toTarget(min), convert100toTarget(max)]
         handleSubmit(e, {
             [`${name}Number`]: arrMinMax,
-            [name]: `Từ ${convert100toTarget(min)} - ${convert100toTarget(max)} ${name === 'price' ? 'triệu' : 'm2'}`
+            [name]: `Từ ${convert100toTarget(min)}${(persent1 === persent2 && persent1 === 100) ? '' : ` - ${convert100toTarget(max)}`} ${name === 'price' ? 'triệu' : 'm2'} ${(persent1 === persent2 && persent1 === 100) ? 'trở lên' : ''}`
         }, {
             [`${name}Arr`]: [min, max]
         })
     }
+    
 
     return (
         <div onClick={() => { setIsShowModal(false) }}
