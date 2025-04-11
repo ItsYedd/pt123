@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     zalo: DataTypes.STRING,
     fbUrl: DataTypes.STRING,
     avatar: DataTypes.BLOB,
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: 'user'
+    }
   }, {
     sequelize,
     modelName: 'User',

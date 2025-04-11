@@ -59,13 +59,13 @@ export const createNewPost = async (req, res) => {
 
 export const getPostsLimitAdmin = async (req, res) => {
     const { page, priceNumber, areaNumber, ...query } = req.query
-    const {id } = req.user
+    const { id, role } = req.user;
     try {
         if (!id) return res.status(400).json({
             err: 1,
             msg: 'missing inputs'
         })
-        const response = await postService.getPostsLimitAdminService(page,id, query, { priceNumber, areaNumber })
+        const response = await postService.getPostsLimitAdminService(page,id, query, { priceNumber, areaNumber },role )
         return res.status(200).json(response)
 
     } catch (error) {

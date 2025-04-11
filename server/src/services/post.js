@@ -177,26 +177,44 @@ export const createNewPostService = (body, userId) => new Promise(async (resolve
     }
 })
 
-export const getPostsLimitAdminService = (page, id, query, { priceNumber, areaNumber }) => new Promise(async (resolve, reject) => {
+export const getPostsLimitAdminService = (
+    page,
+    id,
+    query,
+    { priceNumber, areaNumber },
+    role
+) => new Promise(async (resolve, reject) => {
     try {
         let offset = (!page || +page <= 1) ? 0 : (+page - 1)
-        const queries = { ...query, userId: id }
+        const queries = { ...query }
 
-        const response = await db.Post.findAndCountAll({
+        // Nếu không phải admin => chỉ lấy bài của chính user đó
+        if (role !== 'admin') {
+            queries.userId = id
+        }
+
+        // Tạo options truy vấn
+        const options = {
             where: queries,
             raw: true,
             nest: true,
-            offset: offset * +process.env.LIMIT,
             order: [['createdAt', 'DESC']],
-            limit: +process.env.LIMIT,
             include: [
                 { model: db.Image, as: 'images', attributes: ['image'] },
                 { model: db.Attribute, as: 'attributes', attributes: ['price', 'acreage', 'published', 'hashtag'] },
                 { model: db.User, as: 'user', attributes: ['name', 'zalo', 'phone'] },
                 { model: db.Overview, as: 'overviews' },
-            ],
-            //attributes: ['id', 'title', 'star', 'address', 'description']
-        })
+            ]
+        }
+
+        // Nếu KHÔNG phải admin thì thêm phân trang
+        if (role !== 'admin') {
+            options.limit = +process.env.LIMIT
+            options.offset = offset * +process.env.LIMIT
+        }
+
+        const response = await db.Post.findAndCountAll(options)
+
         resolve({
             err: response ? 0 : 1,
             msg: response ? 'OK' : 'Getting posts is failed.',
@@ -207,6 +225,7 @@ export const getPostsLimitAdminService = (page, id, query, { priceNumber, areaNu
         reject(error)
     }
 })
+
 
 export const updatePost = ({ postId, overviewId, attributesId, imagesId, ...body }) => new Promise(async (resolve, reject) => {
     try {
