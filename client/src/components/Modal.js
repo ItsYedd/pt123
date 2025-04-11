@@ -1,7 +1,6 @@
 import React, { useState, useEffect, memo } from 'react'
 import icons from '../ultils/icons'
 import { getNumbersPrice, getNumbersArea } from '../ultils/Common/getNumbers'
-import { getCodes, getCodesArea } from '../ultils/Common/getCodes'
 
 const { GrLinkPrevious } = icons
 

@@ -26,14 +26,33 @@ const DetailPost = () => {
     const handleFilterLabel = () => {
         const titleSearch = `Tìm kiếm theo chuyên mục ${posts[0]?.labelData?.value}`
         navigate({
-            pathname:`/${path.SEARCH}`,
+            pathname: `/${path.SEARCH}`,
             search: createSearchParams({ labelCode: posts[0]?.labelData?.code }).toString()
         }, { state: { titleSearch } });
     }
     return (
         <div className='w-full flex gap-4'>
             <div className='w-[70%]'>
-                <SliderCustom images={posts && posts.length > 0 && JSON.parse(posts[0]?.images?.image)} />
+            <SliderCustom
+  images={(() => {
+    const raw = posts[0]?.images?.image;
+
+    if (!raw) return [];
+
+    try {
+      // Fix: trim string & check valid JSON
+      const isJSONString = raw.trim().startsWith('[') || raw.trim().startsWith('{');
+      const parsed = isJSONString ? JSON.parse(raw) : raw;
+
+      const arr = Array.isArray(parsed) ? parsed : [parsed];
+      const uniqueImages = [...new Set(arr.map(String))]; // chắc chắn là string
+      return uniqueImages;
+    } catch (err) {
+      console.error('Lỗi parse ảnh:', err);
+      return [raw];
+    }
+  })()}
+/>
                 <div className='bg-white rounded-md shadow-md p-4'>
                     <div className='gap-2 flex flex-col'>
                         <h2 className='text-xl font-bold text-red-500'>{posts[0]?.title}</h2>
@@ -72,11 +91,17 @@ const DetailPost = () => {
                         <div className='mt-5 '>
                             <h3 className='text-xl font-bold my-4'>Thông tin mô tả</h3>
                             <div className='flex flex-col gap-2'>
-                                {posts[0]?.description && JSON.parse(posts[0]?.description)?.map((item, index) => {
-                                    return (
-                                        <span key={index}>{item}</span>
-                                    )
-                                })}
+                                {(() => {
+                                    const raw = posts[0]?.description;
+                                    try {
+                                        const parsed = JSON.parse(raw);
+                                        return Array.isArray(parsed)
+                                            ? parsed.map((item, index) => <span key={index}>{item}</span>)
+                                            : <span>{parsed}</span>; // nếu không phải mảng, hiển thị như chuỗi
+                                    } catch (err) {
+                                        return <span>{raw}</span>; // nếu không parse được => assume là văn bản thuần
+                                    }
+                                })()}
                             </div>
                         </div>
                         <div className='mt-5'>

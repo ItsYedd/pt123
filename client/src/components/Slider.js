@@ -1,5 +1,8 @@
 import React, { memo } from 'react'
-import  Slider from "react-slick"
+import Slider from "react-slick"
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 
 const settings = {
     dots: false,
@@ -17,7 +20,7 @@ const SliderCustom = ({images}) => {
                       <div key={index} className='bg-black flex justify-center h-[320px] px-12'>
                           <img
                               src={item}
-                              alt="slider"
+                              alt={`slider-${index}`}
                               className='object-contain max-h-full m-auto h-full'
                           />
                       </div>
