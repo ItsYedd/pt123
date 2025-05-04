@@ -14,7 +14,8 @@ export const path = {
     EDIT_ACOUNT: 'sua-thong-tin-ca-nhan',
     CONTACT: 'lien-he',
     DETAIL: '/chi-tiet/',
-    DETAIL_ALL : 'chi-tiet/*'
+    DETAIL_ALL: 'chi-tiet/*',
+    RENT : 'rent'
 }
 
 export const text = {

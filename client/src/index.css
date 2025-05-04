@@ -96,3 +96,85 @@ button.slick-arrow::before{
         transform: translateX(100px);
     }
 }
+
+/* styles.css */
+
+/* Toàn trang */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9fafb;
+    color: #333;
+  }
+  
+  /* Khối container */
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Tiêu đề */
+  h1 {
+    font-size: 2rem;
+    color: #2563eb; /* Xanh dương */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Các đoạn văn */
+  p {
+    margin: 10px 0;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  /* Danh sách hình ảnh */
+  .image-slider {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px 0;
+  }
+  
+  .image-slider img {
+    flex: 0 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .image-slider img:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Nút */
+  button {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #174ea6;
+  }
+  
+  .contact-info p {
+    margin: 5px 0;
+    color: #555;
+    font-weight: bold;
+  }
+  
+  .contact-info p span {
+    font-weight: normal;
+    color: #333;
+  }

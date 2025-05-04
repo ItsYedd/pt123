@@ -1,10 +1,12 @@
 import { Routes, Route } from 'react-router-dom'
-import { Home, Login, Rental, Homepage, DetailPost, SearchDetail, Contact } from './containers/Public'
+import { Home, Login, Rental, Homepage, DetailPost, SearchDetail, Contact, Rent } from './containers/Public'
 import { path } from './ultils/constant'
 import { System, CreatePost, ManagePost, EditAccount } from './containers/System'
 import * as actions from './store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
+import PrenyChatbot from './components/PrenyChatbot'; // Import component mới
+
 
 
 
@@ -25,6 +27,7 @@ function App() {
 
   return (
     <div className="bg-primary overflow-hidden">
+      <PrenyChatbot/>
       <Routes>
         <Route path={path.HOME} element={<Home />}>
           <Route path='*' element={<Homepage />} />
@@ -36,6 +39,7 @@ function App() {
           <Route path={path.SEARCH} element={<SearchDetail />} />
           <Route path={path.DETAL_POST__TITLE__POSTID} element={<DetailPost />} />
           <Route path={path.CONTACT} element={<Contact />} />
+          <Route path={path.RENT} element={<Rent />} />
           {/* <Route path={path.DETAIL_ALL} element={<DetailPost />} /> */}
         </Route>
         <Route path={path.SYSTEM} element={<System />} >

@@ -30,29 +30,28 @@ const DetailPost = () => {
             search: createSearchParams({ labelCode: posts[0]?.labelData?.code }).toString()
         }, { state: { titleSearch } });
     }
+   
     return (
         <div className='w-full flex gap-4'>
             <div className='w-[70%]'>
-            <SliderCustom
-  images={(() => {
-    const raw = posts[0]?.images?.image;
+                <SliderCustom
+                    images={(() => {
+                        const raw = posts[0]?.images?.image;
+                        if (!raw) return [];
+                        try {
+                            // Fix: trim string & check valid JSON
+                            const isJSONString = raw.trim().startsWith('[') || raw.trim().startsWith('{');
+                            const parsed = isJSONString ? JSON.parse(raw) : raw;
 
-    if (!raw) return [];
-
-    try {
-      // Fix: trim string & check valid JSON
-      const isJSONString = raw.trim().startsWith('[') || raw.trim().startsWith('{');
-      const parsed = isJSONString ? JSON.parse(raw) : raw;
-
-      const arr = Array.isArray(parsed) ? parsed : [parsed];
-      const uniqueImages = [...new Set(arr.map(String))]; // chắc chắn là string
-      return uniqueImages;
-    } catch (err) {
-      console.error('Lỗi parse ảnh:', err);
-      return [raw];
-    }
-  })()}
-/>
+                            const arr = Array.isArray(parsed) ? parsed : [parsed];
+                            const uniqueImages = [...new Set(arr.map(String))]; // chắc chắn là string
+                            return uniqueImages;
+                        } catch (err) {
+                            console.error('Lỗi parse ảnh:', err);
+                            return [raw];
+                        }
+                    })()}
+                />
                 <div className='bg-white rounded-md shadow-md p-4'>
                     <div className='gap-2 flex flex-col'>
                         <h2 className='text-xl font-bold text-red-500'>{posts[0]?.title}</h2>
@@ -171,7 +170,14 @@ const DetailPost = () => {
                 </div>
             </div>
             <div className='w-[30%] flex flex-col gap-5'>
-                <BoxInfo userData={posts[0]?.user} />
+                <BoxInfo userData={posts[0]?.user}
+                    postId={postId}
+                    price={posts[0]?.attributes?.price}
+                    title={posts[0]?.title}
+                    address={posts[0]?.address}
+                    image={posts[0]?.images?.image}
+                    
+                />
                 <RelatedPost />
                 <RelatedPost newPost />
             </div>
